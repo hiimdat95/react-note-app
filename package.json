@@ -1,0 +1,21 @@
+{
+  "name": "react-note-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "author": "ltiendat95",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^5.4.2",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-scripts": "^1.1.5",
+    "redbox-react": "^1.6.0"
+  }
+}
