@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
 import './App.css';
 import * as firebase from 'firebase';
-import firebaseConnect from "../../firebaseConnect";
+import { noteData } from "../../firebaseConnect";
 import NoteForm from './noteform/NoteForm';
 import NoteList from './notelist/NoteList';
 import Nav from './nav/Nav';
 
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.setState = {};
+    }
+
+    addData = (item) => {
+        noteData.push(item);
+    }
+
     pushData = () => {
         var connectData = firebase.database().ref('dataForNote');
         connectData.push({
@@ -20,15 +29,19 @@ class App extends Component {
         connectData.child(id).remove();
     }
 
+
     render() {
-        console.log(firebaseConnect);
+        noteData.once('value').then(function (snapshot) {
+            console.log(snapshot.val());
+        });
+        console.log(noteData);
         return (
             <div >
                 <Nav />
                 <div className="container">
                     <div className="row">
                         <NoteList />
-                        <NoteForm />
+                        <NoteForm getData={(item) => this.addData(item)} />
                     </div>
                 </div>
             </div>

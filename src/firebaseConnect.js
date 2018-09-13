@@ -11,12 +11,17 @@ var config = {
 };
 
 
-export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
+if(!firebase.apps.length)
+    firebase.initializeApp(config);
+else
+    firebase.app();
+export const noteData  = firebase.database().ref('dataForNote');
 
-var data = firebase.database().ref('dataForNote/note2');
-    data.once('value').then(function(snapshot){
-        console.log(snapshot.val());
-    }) 
+// var data = firebase.database().ref('dataForNote/note2');
+//     data.once('value').then(function(snapshot){
+//         console.log(snapshot.val());
+//     }) 
+
 // data.set({
 //     id:1,
 //     titleNote:"Tieu de ghi chu 2 (edited)",
