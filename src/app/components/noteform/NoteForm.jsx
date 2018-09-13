@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+ import {connect} from 'react-redux';
 
 class NoteForm extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -20,12 +20,14 @@ class NoteForm extends Component {
         })
     }
 
+    
     addData = (title, content) =>{
         var item ={};
         item.title = title;
         item.content = content;
-        this.props.getData(item);
+        // this.props.getData(item);
 
+        this.props.addDataStore(item);//use reducer trong store
     }
     render() {
         return (
@@ -34,12 +36,12 @@ class NoteForm extends Component {
                 <form>
                     <div className="form-group">
                         <label htmlFor="noteTitle">Tiêu đề note</label>
-                        <input onChange={(event) => this.isChange(event)} type="text" className="form-control" name="title" id="noteTitle" aria-describedby="helpIdNoteTitle" placeholder="Tiêu đề note" />
+                        <input defaultValue={this.props.editItem.title} onChange={(event) => this.isChange(event)} type="text" className="form-control" name="title" id="noteTitle" aria-describedby="helpIdNoteTitle" placeholder="Tiêu đề note" />
                         <small id="helpIdNoteTitle" className="form-text text-muted">Điền tiêu đề vào đây</small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="noteContent">Nội dung note</label>
-                        <textarea onChange={(event) => this.isChange(event)} type="text" className="form-control" name="content" id="noteContent" aria-describedby="helpIdNoteTitle" placeholder="Nội dung note" defaultValue={" "} />
+                        <textarea defaultValue={this.props.editItem.content} onChange={(event) => this.isChange(event)} type="text" className="form-control" name="content" id="noteContent" aria-describedby="helpIdNoteTitle" placeholder="Nội dung note" />
                         <small id="helpIdNoteTitle" className="form-text text-muted">Điền nội dung vào đây</small>
                     </div>
                     <button type="reset" onClick={()=>this.addData(this.state.title, this.state.content)} className="btn btn-primary btn-block">Lưu</button>
@@ -49,5 +51,18 @@ class NoteForm extends Component {
         );
     }
 }
+//prop.editItem
+const mapStateToProps = (state, ownProps) => {
+    return {
+        editItem : state.editItem
+    }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        addDataStore: (getItem) => {
+            dispatch({type: "ADD_DATA", getItem});
+        }
+    }
+}
 
-export default NoteForm;
+export default connect(mapStateToProps, mapDispatchToProps)(NoteForm);

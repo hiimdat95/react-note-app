@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { Provider } from 'react-redux';
+import store from './app/store/store';
+
 //Save a reference to the root element for reuse
 const rootEl = document.getElementById("root");
 
@@ -9,12 +12,15 @@ let render = () => {
     //Dynamically import our main App component, and render it
     const App = require("./app/components/App").default;
     ReactDOM.render(
-        <App/>,
+        <Provider store={store}>
+            <App />
+        </Provider> 
+        ,
         rootEl
     );
 }
 
-if(module.hot) {
+if (module.hot) {
     // Support hot reloading of components
     // and display an overlay for runtime errors
     const renderApp = render;
@@ -32,7 +38,7 @@ if(module.hot) {
         try {
             renderApp();
         }
-        catch(error) {
+        catch (error) {
             console.error(error);
             renderError(error);
         }

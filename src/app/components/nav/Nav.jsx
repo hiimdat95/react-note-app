@@ -9,10 +9,10 @@ class Nav extends Component {
                 <div className="collapse navbar-collapse justify-content-end" id="collapsibleNavId">
                     <ul className="navbar-nav  mt-2 mt-lg-0 ">
                         <li className="nav-item active">
-                            <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                            <a className="nav-link" >Home <span className="sr-only">(current)</span></a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Xem danh sách NOTE</a>
+                            <a className="nav-link" >Xem danh sách NOTE</a>
                         </li>
                     </ul>
                 </div>

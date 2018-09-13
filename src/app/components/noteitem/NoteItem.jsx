@@ -1,24 +1,55 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class NoteItem extends Component {
+  twoActionButton = () => {
+    this.props.changeEditStatus();//action 
+    //ham lay noi dung truyen trong store, de store update du lieu --action 2
+    
+    this.props.getEditData(this.props.note);
+  }
+
   render() {
     return (
       <div className="card">
         <div className="card-header" role="tab" id="note1">
           <h5 className="mb-0">
-            <a data-toggle="collapse" data-parent="#noteList" href="#noteContent1" aria-expanded="true" aria-controls="noteContent1">
-              Ghi chu ngay 31/03/2018
-              </a>
+            <a data-toggle="collapse" data-parent="#noteList" href={"#number" + this.props.index} aria-expanded="true" aria-controls="noteContent1">
+              {this.props.title}
+            </a>
+            <div className="btn-group float-right">
+              <button className="btn btn-outline-info" onClick={() => this.twoActionButton()}>Edit</button>
+              <button className="btn btn-outline-secondary">Delete</button>
+            </div>
           </h5>
         </div>
-        <div id="noteContent1" className="collapse in" role="tabpanel" aria-labelledby="note1">
+        <div id={"number" + this.props.index} className="collapse in" role="tabpanel" aria-labelledby="note1">
           <div className="card-body">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam facere doloribus ut deleniti asperiores, rem cupiditate neque suscipit, mollitia veniam, natus iusto. Similique saepe laboriosam non ducimus ex, beatae facere.
-            </div>
+            {this.props.content}
+          </div>
         </div>
       </div>
     );
   }
 }
-
-export default NoteItem;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    editStatus: state.isEdit
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    changeEditStatus: () => {
+      dispatch({
+        type: "CHANGE_EDIT_STATUS"
+      })
+    },
+    getEditData: (editObject) => {
+      dispatch({
+        type: "GET_EDIT_DATA",
+        editObject
+      })
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(NoteItem)

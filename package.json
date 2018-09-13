@@ -15,7 +15,9 @@
     "firebase": "^5.4.2",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
+    "react-redux": "^5.0.7",
     "react-scripts": "^1.1.5",
-    "redbox-react": "^1.6.0"
+    "redbox-react": "^1.6.0",
+    "redux": "^4.0.0"
   }
 }
