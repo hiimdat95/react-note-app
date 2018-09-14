@@ -5,8 +5,12 @@ class NoteItem extends Component {
   twoActionButton = () => {
     this.props.changeEditStatus();//action 
     //ham lay noi dung truyen trong store, de store update du lieu --action 2
-    
     this.props.getEditData(this.props.note);
+    // this.props.changeAddStatus();
+  }
+  deleteData = () => {
+    this.props.getDeleteData(this.props.note.id);
+    this.props.alertOn("Delete item '"+ this.props.note.title+ "' success", "danger");
   }
 
   render() {
@@ -19,7 +23,7 @@ class NoteItem extends Component {
             </a>
             <div className="btn-group float-right">
               <button className="btn btn-outline-info" onClick={() => this.twoActionButton()}>Edit</button>
-              <button className="btn btn-outline-secondary">Delete</button>
+              <button className="btn btn-outline-secondary" onClick={() => this.deleteData()}>Delete</button>
             </div>
           </h5>
         </div>
@@ -44,10 +48,33 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         type: "CHANGE_EDIT_STATUS"
       })
     },
+    changeAddStatus: () => {
+      dispatch({
+        type: "CHANGE_ADD_STATUS"
+      })
+    },
     getEditData: (editObject) => {
       dispatch({
         type: "GET_EDIT_DATA",
         editObject
+      })
+    },
+    getDeleteData: (deleteId) => {
+      dispatch({
+        type: 'DELETE',
+        deleteId
+      })
+    },
+    alertOn: (alertContent, alertType) => {
+      dispatch({
+        type: "ALERT_ON",
+        alertContent,
+        alertType,
+      })
+    },
+    alertOff: () => {
+      dispatch({
+        type: "ALERT_OFF"
       })
     }
   }

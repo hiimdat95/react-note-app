@@ -16,7 +16,7 @@ class NoteList extends Component {
                 const title = element.val().title;
                 const content = element.val().content;
                 arrayNote.push({
-                    key: key,
+                    id: key,
                     title: title,
                     content: content
                 })
